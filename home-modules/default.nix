@@ -32,6 +32,7 @@
       ventoy
       wl-clipboard
       yubioath-flutter
+      custom.windowtolayer
     ];
 
     sessionVariables = {

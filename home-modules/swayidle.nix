@@ -1,5 +1,13 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
+  # Hack to ensure screen locker works properly
+  # Otherwise, nothing would be accessible from swayidle's environment
+  systemd.user.services.swayidle.Service.Environment = lib.mkForce [ ];
   services.swayidle =
     let
       lock = "loginctl lock-session";
@@ -29,8 +37,7 @@
       events = [
         {
           event = "lock";
-          # Only start one instance of locking script
-          command = "pidof -x lockman.sh || ${lib.getExe pkgs.custom.lockman}";
+          command = lib.getExe config.programs.swaylock.package;
         }
         {
           event = "before-sleep";
