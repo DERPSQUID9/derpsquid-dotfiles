@@ -70,6 +70,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Niri compositor
+    # Provides a binary cache, so do not follow inputs
+    niri.url = "github:sodiboo/niri-flake";
+
     # Hyprland community tools
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
