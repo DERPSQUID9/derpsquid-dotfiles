@@ -68,8 +68,22 @@ in
                 "while true; do script --quiet --log-out /dev/null --command fastfetch | pv -qL 200; done"
               )
 
+              # Each shader matches up with a wallpaper
+              readonly SHADERS=(
+                "water"
+                "bloom"
+                "cineShader-Lava"
+                "gears-and-belts"
+                "cubes"
+                "sin-interference"
+                "matrix-hallway"
+                "in-game-crt"
+              )
+
+              index=$((RANDOM % ''${#SCREENSAVERS[@]}))
+
               # sleep for a bit so the terminal has time to set its dimensions
-              timeout 60 windowtolayer handlr launch x-scheme-handler/terminal -- -e "sleep 0.2 && ''${SCREENSAVERS[(($RANDOM % ''${#SCREENSAVERS[@]}))]}"
+              timeout 60 windowtolayer handlr launch x-scheme-handler/terminal -- --custom-shader="${inputs.ghostty-shaders}/''${SHADERS[$index]}.glsl" -e "sleep 0.2 && ''${SCREENSAVERS[$index]}"
             '';
         }
       );
